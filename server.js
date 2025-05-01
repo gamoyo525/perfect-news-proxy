@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // APIキーとNewsAPIのURL
-const API_KEY = 'YOUR_API_KEY';  // ここに自分のAPIキーを入れてください
+const API_KEY = '1a5a88eb386244ff9e7f82966e28e009';  // ここに自分のAPIキーを入れてください
 const BASE_URL = 'https://newsapi.org/v2/top-headlines';
 
 app.get('/news', async (req, res) => {
