@@ -7,7 +7,7 @@ const App = () => {
 
   useEffect(() => {
     // ここでNewsAPIにリクエストを送ります
-    axios.get('https://newsapi.org/v2/top-headlines?country=jp&apiKey=1a5a88eb386244ff9e7f82966e28e009')
+    axios.get('https://newsapi.org/v2/top-headlines?country=jp&apiKey= 1a5a88eb386244ff9e7f82966e28e009')
       .then((response) => {
         setArticles(response.data.articles);
         setLoading(false);
