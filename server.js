@@ -1,26 +1,24 @@
-const express = require('express');
-const axios = require('axios');
+const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
+require("dotenv").config();
+
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-// APIキーとNewsAPIのURL
-const API_KEY = '1a5a88eb386244ff9e7f82966e28e009';  // ここに自分のAPIキーを入れてください
-const BASE_URL = 'https://newsapi.org/v2/top-headlines';
+app.use(cors()); // ← これがCORS許可
 
-app.get('/news', async (req, res) => {
+app.get("/news", async (req, res) => {
   try {
-    const response = await axios.get(BASE_URL, {
-      params: {
-        country: 'jp',  // 日本のニュースを取得
-        apiKey: API_KEY
-      }
-    });
+    const response = await axios.get(
+      `https://newsapi.org/v2/top-headlines?country=jp&apiKey=${process.env.NEWS_API_KEY}`
+    );
     res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching news' });
+    res.status(500).json({ error: "ニュースの取得に失敗しました" });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
