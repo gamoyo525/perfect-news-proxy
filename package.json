@@ -1,12 +1,42 @@
-{
-  "name": "news-proxy-server",
-  "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "express": "^4.17.1"
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const App = () => {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // ここでNewsAPIにリクエストを送ります
+    axios.get('https://newsapi.org/v2/top-headlines?country=jp&apiKey=1a5a88eb386244ff9e7f82966e28e009')
+      .then((response) => {
+        setArticles(response.data.articles);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching news:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
-}
+
+  return (
+    <div>
+      <h1>最新ニュース</h1>
+      <ul>
+        {articles.map((article, index) => (
+          <li key={index}>
+            <a href={article.url} target="_blank" rel="noopener noreferrer">
+              <h2>{article.title}</h2>
+            </a>
+            <p>{article.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
