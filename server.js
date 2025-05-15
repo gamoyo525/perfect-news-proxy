@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors()); // ← これがCORS許可
+app.use(cors()); // CORS許可
 
 app.get("/news", async (req, res) => {
   try {
